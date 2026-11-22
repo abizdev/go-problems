@@ -3,8 +3,11 @@ package main
 import (
 	"context"
 	"fmt"
-	merge "go-problems/merge-channel"
+
+	// merge "go-problems/merge-channel"
+	reateLimiter "go-problems/rate-limiter"
 	requestFailover "go-problems/request-failover"
+	// requestFailover "go-problems/request-failover"
 	"net/http"
 	"time"
 )
@@ -24,6 +27,7 @@ func failOverResult() {
 }
 
 func main() {
-	merge.MergeChannels()
-	failOverResult()
+	// merge.MergeChannels()
+	// failOverResult()
+	reateLimiter.NewRateLimiter(5, 3)
 }
