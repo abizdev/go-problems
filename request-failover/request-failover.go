@@ -11,7 +11,7 @@ import (
 type FailoverResult struct {
 	URL  string
 	Body []byte
-}
+}	
 
 func RequestWithFailover(ctx *context.Context, client *http.Client, urls []string) (FailoverResult, error) {
 	var result FailoverResult
