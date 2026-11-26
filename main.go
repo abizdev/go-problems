@@ -2,11 +2,13 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 
 	// merge "go-problems/merge-channel"
 	successfulRequest "go-problems/first-successful-request"
 	requestFailover "go-problems/request-failover"
+	taskRunnner "go-problems/task-runner"
 
 	// requestFailover "go-problems/request-failover"
 	"net/http"
@@ -41,9 +43,30 @@ func firstSuccessFulRequestCall() {
 	fmt.Println(result, err)
 }
 
+func taskRunnerCall() {
+	ctx := context.Background()
+	tasks := []taskRunnner.Task{
+		func(ctx context.Context) (any, error) {
+			return "First", nil
+		},
+
+		func(ctx context.Context) (any, error) {
+			return nil, errors.New("something went wrong")
+		},
+
+		func(ctx context.Context) (any, error) {
+			return "Third", nil
+		},
+	}
+
+	result, err := taskRunnner.RunTasks(ctx, 3, tasks)
+	fmt.Println(result, err)
+}
+
 func main() {
 	// merge.MergeChannels()
 	// failOverResult()
 	// reateLimiter.NewRateLimiter(5, 3)
-	firstSuccessFulRequestCall()
+	// firstSuccessFulRequestCall()
+	taskRunnerCall()
 }
